@@ -1,5 +1,6 @@
 
 
+#Check python version
 
 #python3 --version
 #pip3 --version
@@ -27,7 +28,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
-#scarica chromedriver dal sito e metti il file chromedriver.exe dentro la cartella di selenium del path seguente
+#1) download chromedriver 
+#2) put chromedriver.exe file inside the following path folder 
+#For example:
 #driver=webdriver.Chrome(executable_path=r"/Users/chris/selenium-3.141.0/selenium/webdriver/chrome/chromedriver")
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
@@ -41,8 +44,9 @@ params = params + '&checkout='+ dataout
 params = params + '&group_adults='+nadults
 params = params + '&no_rooms=1'
 params = params + '&group_children=0'
+#Set ages
 #params = params + '&age=2'
-#params = params + '&age=3'
+
 
 url = "http://www.booking.com/searchresults.it.html?ss=Castelnuovo+del+Garda"+params
 
@@ -69,9 +73,6 @@ nomi=[]
 for name in names:
     nomi.append(name.text)
 
-#nomi[0]
-#'Nest Guesthouse' in nomi
-
 
 score = driver.find_elements(By.XPATH, "//div[@class='b5cd09854e d10a6220b4']")
 rating=[]
@@ -79,16 +80,8 @@ for i in score:
     rating.append(i.text)
 
 
-mobile_rate=0.1
-#si aggiunge a:
-#non si aggiunge a:country rates, limited-time deal and business booker
 
-#genius: 0 - 30 % dinamico
-
-
-#prezzo_max_sconto = 
-
-
+#Create output df 
 
 df = pd.DataFrame()
 df['Denominazione'] = nomi
